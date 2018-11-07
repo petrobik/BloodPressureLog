@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">BloodPressureLog</string>
+    <string name="sys_label">SYS</string>
+    <string name="dia_label">DIA</string>
+    <string name="pulse_label">PULSE</string>
+    <string name="sys_hint">Enter a systolic value</string>
+    <string name="dia_hint">Enter a diastolic value</string>
+    <string name="pulse_hint">Enter a pulse value</string>
+    <string name="date_label">Date</string>
+    <string name="time_label">Time</string>
+    <string name="arrhythmia_label">Arrhythmia</string>
 </resources>

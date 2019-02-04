@@ -1,6 +1,7 @@
 package com.bikshanov.bloodpressurelog;
 
-import android.graphics.Color;
+import android.content.Context;
+import androidx.core.content.ContextCompat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,15 +34,19 @@ public class Helpers {
 
     // Select the color for item depending the blood pressure value
     //TODO: Должно учитываться либо SYS, либо DIA
-    public static int pressureToColor(int pressure) {
+    public static int pressureToColor(Context context, int pressure) {
 
-        if (pressure >= 130 && pressure <= 139) {
-            return Color.YELLOW;
-        } else if (pressure > 139) {
-            return Color.RED;
+        if (pressure >= 120 && pressure <= 139) {
+            return ContextCompat.getColor(context, R.color.yellow);
+        } else if (pressure >= 140 && pressure <= 159) {
+            return ContextCompat.getColor(context, R.color.orange);
+        } else if (pressure >= 160 && pressure <= 179) {
+            return ContextCompat.getColor(context, R.color.red);
+        } else if (pressure >= 180) {
+            return ContextCompat.getColor(context, R.color.deep_red);
         }
 
-        return Color.GREEN;
+        return ContextCompat.getColor(context, R.color.green);
     }
 
 }

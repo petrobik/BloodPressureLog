@@ -1,6 +1,6 @@
 package com.bikshanov.bloodpressurelog;
 
-import android.support.annotation.StringDef;
+import androidx.annotation.StringDef;
 
 import java.util.Date;
 import java.util.UUID;

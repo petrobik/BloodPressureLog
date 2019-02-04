@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Дневник давления</string>
+    <string name="sys_label">СИС</string>
+    <string name="dia_label">ДИА</string>
+    <string name="pulse_label">Пульс</string>
+    <string name="date_label">Дата</string>
+    <string name="time_label">Время</string>
+    <string name="arrhythmia_label">Аритмия</string>
+    <string name="title_readings">Показания</string>
+    <string name="title_charts">Графики</string>
+    <string name="title_statistics">Статистика</string>
+    <string name="sys_hint">Значение систолического давления</string>
+    <string name="dia_hint">Значение диастолического давления</string>
+    <string name="pulse_hint">Значение пульса</string>
+</resources>

@@ -3,16 +3,18 @@
     <string name="sys_label">SYS</string>
     <string name="dia_label">DIA</string>
     <string name="pulse_label">PULSE</string>
-    <string name="sys_hint">Enter a systolic value</string>
-    <string name="dia_hint">Enter a diastolic value</string>
-    <string name="pulse_hint">Enter a pulse value</string>
+    <string name="sys_hint">SYS, mmHG</string>
+    <string name="dia_hint">DIA, mmHg</string>
+    <string name="pulse_hint">PULSE, BPM</string>
     <string name="date_label">Date</string>
     <string name="time_label">Time</string>
     <string name="arrhythmia_label">Arrhythmia</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_readings">Readings</string>
     <string name="title_charts">Charts</string>
     <string name="title_statistics">Statistics</string>
-    <string name="date_picker_title">Date of measurement</string>
-    <string name="fab_behavior_value">com.bikshanov.bloodpressurelog.FabBehavior</string>
+    <string name="save">Save</string>
+    <string name="comment_hint">Note</string>
+    <string name="dialog_discard">Discard</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_message">Discard changes?</string>
 </resources>

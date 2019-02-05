@@ -46,11 +46,8 @@ public class FabBehavior extends FloatingActionButton.Behavior {
                     fab.setVisibility(View.INVISIBLE);
                 }
             });
-
-            Log.d("FAB", String.valueOf(dyConsumed));
         } else if (dyConsumed < 0) {
 //            child.animate().translationY(0).setInterpolator(new FastOutSlowInInterpolator()).start();
-            Log.d("FAB", String.valueOf(dyConsumed));
             child.show();
         }
     }

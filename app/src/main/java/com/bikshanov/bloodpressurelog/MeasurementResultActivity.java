@@ -1,11 +1,11 @@
 package com.bikshanov.bloodpressurelog;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.UUID;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 public class MeasurementResultActivity extends SingleFragmentActivity {
 
@@ -21,5 +21,25 @@ public class MeasurementResultActivity extends SingleFragmentActivity {
         Intent intent = new Intent(packageContext, MeasurementResultActivity.class);
         intent.putExtra(EXTRA_RESULT_ID, resultId);
         return intent;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
+        confirmDialog.setMessage(R.string.dialog_message);
+        confirmDialog.setPositiveButton(R.string.dialog_discard, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        confirmDialog.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        confirmDialog.show();
     }
 }

@@ -12,6 +12,9 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+
         setContentView(R.layout.activity_fragment);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

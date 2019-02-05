@@ -8,6 +8,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SortedList;
+import androidx.recyclerview.widget.SortedListAdapterCallback;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +26,8 @@ import java.util.List;
 
 public class ResultsListFragment extends Fragment {
 
+
+    private final String TAG = "ResultListFragment";
     private RecyclerView mResultsRecyclerView;
     private ResultsAdapter mAdapter;
     private int mAdapterPosition;
@@ -43,76 +49,17 @@ public class ResultsListFragment extends Fragment {
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MeasurementResult measurementResult = new MeasurementResult();
-                ResultsStore.get(getActivity()).addResult(measurementResult);
-                Intent intent = MeasurementResultActivity.newIntent(getActivity(), measurementResult.getId());
+//                MeasurementResult measurementResult = new MeasurementResult();
+//                ResultsStore.get(getActivity()).addResult(measurementResult);
+//                Intent intent = MeasurementResultActivity.newIntent(getActivity(), measurementResult.getId());
+                Intent intent = MeasurementResultActivity.newIntent(getActivity(), null);
                 startActivity(intent);
             }
         });
 
-//        mResultsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                if (dy < 0 && !mFloatingActionButton.isShown()) {
-//                    mFloatingActionButton.show();
-//                } else if (dy > 0 && mFloatingActionButton.isShown()) {
-//                    mFloatingActionButton.hide();
-//                }
-//            }
-//        });
-
-//        mResultsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//
-//                int scrollDist = 0;
-//                boolean isVisible = true;
-//                final float MINIMUM = 25;
-//
-//                super.onScrolled(recyclerView, dx, dy);
-//
-//                if (mFloatingActionButton.isShown() && scrollDist > MINIMUM) {
-//                    hide();
-//                    scrollDist = 0;
-//                    isVisible = false;
-//                } else if (!mFloatingActionButton.isShown() && scrollDist < -MINIMUM) {
-//                    show();
-//                    scrollDist = 0;
-//                    isVisible = true;
-//                }
-//
-//                if ((isVisible && dy > 0) || (!isVisible && dy < 0)) {
-//                    scrollDist += dy;
-//                }
-//            }
-//
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//        });
-
         updateUI();
 
         return view;
-    }
-
-    public void hide() {
-        CoordinatorLayout.LayoutParams layoutParams =
-                (CoordinatorLayout.LayoutParams) mFloatingActionButton.getLayoutParams();
-        int fabBottomMargin = layoutParams.bottomMargin;
-        mFloatingActionButton.animate().translationY(mFloatingActionButton.getHeight() +
-        fabBottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();
-    }
-
-    public void show() {
-        mFloatingActionButton.animate().translationY(0)
-                .setInterpolator(new DecelerateInterpolator(2)).start();
     }
 
     @Override
@@ -126,6 +73,21 @@ public class ResultsListFragment extends Fragment {
         List<MeasurementResult> measurementResults = resultsStore.getMeasurementResults();
 
         // Sort list of measurements by date before setting the adapter
+//        if (measurementResults.size() > 0) {
+//            Collections.sort(measurementResults, new Comparator<MeasurementResult>() {
+//                @Override
+//                public int compare(MeasurementResult result1, MeasurementResult result2) {
+//                    return -result1.getDate().compareTo(result2.getDate());
+//                }
+//            });
+//        }
+
+        if (mAdapter == null) {
+            mAdapter = new ResultsAdapter(measurementResults);
+            mResultsRecyclerView.setAdapter(mAdapter);
+        } else {
+
+            // Sort list of measurements by date before setting the adapter
         if (measurementResults.size() > 0) {
             Collections.sort(measurementResults, new Comparator<MeasurementResult>() {
                 @Override
@@ -135,14 +97,14 @@ public class ResultsListFragment extends Fragment {
             });
         }
 
-        if (mAdapter == null) {
-            mAdapter = new ResultsAdapter(measurementResults);
-            mResultsRecyclerView.setAdapter(mAdapter);
-        } else {
-//            mAdapter.notifyDataSetChanged();
-            mAdapter.notifyItemChanged(mAdapterPosition);
-        }
+            mAdapter.setResults(measurementResults);
 
+//TODO Разобраться с notifyItemChanged (не обновляется item после добавления жлемета или при редактировании существующего)
+
+            mAdapter.notifyDataSetChanged();
+
+//            mAdapter.notifyItemChanged(mAdapterPosition);
+        }
     }
 
     private class ResultsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -173,7 +135,8 @@ public class ResultsListFragment extends Fragment {
             mPressureTextView.setText(pressureValue);
             mPulseTextView.setText(pulseValue);
             mDateTextView.setText(Helpers.formatFullDate(mResult.getDate()));
-            mBorderView.setBackgroundColor(Helpers.pressureToColor(getActivity(), result.getSysBloodPressure()));
+            mBorderView.setBackgroundColor(Helpers.pressureToColor(getActivity(),
+                    result.getSysBloodPressure(), result.getDiaBloodPressure()));
             mArrhythmiaImageView.setVisibility(mResult.isArrhythmia() ? View.VISIBLE : View.GONE);
         }
 
@@ -181,6 +144,7 @@ public class ResultsListFragment extends Fragment {
         public void onClick(View view) {
             mAdapterPosition = getAdapterPosition();
             Intent intent = MeasurementResultActivity.newIntent(getActivity(), mResult.getId());
+            Log.d(TAG, "ID: " + mResult.getId());
             startActivity(intent);
         }
     }
@@ -208,9 +172,20 @@ public class ResultsListFragment extends Fragment {
 
         }
 
+        public void setResults(List<MeasurementResult> results) {
+            mResults = results;
+        }
+
         @Override
         public int getItemCount() {
             return mResults.size();
         }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
     }
 }
+
+

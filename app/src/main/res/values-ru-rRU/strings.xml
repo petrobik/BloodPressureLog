@@ -4,13 +4,18 @@
     <string name="sys_label">СИС</string>
     <string name="dia_label">ДИА</string>
     <string name="pulse_label">Пульс</string>
+    <string name="sys_hint">СИС, мм рт. ст.</string>
+    <string name="dia_hint">ДИА, мм рт.ст.</string>
+    <string name="pulse_hint">ПУЛЬС, уд/мин</string>
     <string name="date_label">Дата</string>
     <string name="time_label">Время</string>
     <string name="arrhythmia_label">Аритмия</string>
     <string name="title_readings">Показания</string>
     <string name="title_charts">Графики</string>
     <string name="title_statistics">Статистика</string>
-    <string name="sys_hint">Значение систолического давления</string>
-    <string name="dia_hint">Значение диастолического давления</string>
-    <string name="pulse_hint">Значение пульса</string>
+    <string name="save">Сохранить</string>
+    <string name="comment_hint">Комментарий</string>
+    <string name="dialog_discard">Выход</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="dialog_message">Выйти без сохранения данных?</string>
 </resources>

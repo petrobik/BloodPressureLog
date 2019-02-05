@@ -11,8 +11,8 @@ import java.util.UUID;
 public class ResultsStore {
 
     private static ResultsStore sResultsStore;
-//    private List<MeasurementResult> mMeasurementResults;
-    private Map<UUID, MeasurementResult> mMeasurementResults;
+    private List<MeasurementResult> mMeasurementResults;
+//    private Map<UUID, MeasurementResult> mMeasurementResults;
 
     public static ResultsStore get(Context context) {
         if (sResultsStore == null) {
@@ -24,37 +24,45 @@ public class ResultsStore {
 
     private ResultsStore(Context context) {
 
-//        mMeasurementResults = new ArrayList<>();
+        mMeasurementResults = new ArrayList<>();
 
-        mMeasurementResults = new LinkedHashMap<>();
-        for (int i = 0; i < 100; i++) {
-            MeasurementResult result = new MeasurementResult();
-            result.setSysBloodPressure(110 + i);
-            result.setDiaBloodPressure(70 + i);
-            result.setPulse(60 + i);
-            result.setHealth("Normal");
-            result.setComment("");
-            result.setArrhythmia(i % 2 == 0);
+//        mMeasurementResults = new LinkedHashMap<>();
+//        for (int i = 0; i < 100; i++) {
+//            MeasurementResult result = new MeasurementResult();
+//            result.setSysBloodPressure(110 + i);
+//            result.setDiaBloodPressure(70 + i);
+//            result.setPulse(60 + i);
+//            result.setHealth("Normal");
+//            result.setComment("Comment " + i);
+//            result.setArrhythmia(i % 2 == 0);
 //            mMeasurementResults.add(result);
-            mMeasurementResults.put(result.getId(), result);
-        }
+////            mMeasurementResults.put(result.getId(), result);
+//        }
     }
 
     public List<MeasurementResult> getMeasurementResults() {
-//        return mMeasurementResults;
-        return new ArrayList<>(mMeasurementResults.values());
+        return mMeasurementResults;
+//        return new ArrayList<>(mMeasurementResults.values());
     }
 
     public MeasurementResult getMeasurementResult(UUID id) {
-//        for (MeasurementResult result: mMeasurementResults) {
-//            if (result.getId().equals(id)) {
-//                return result;
-//            }
-//        }
-        return mMeasurementResults.get(id);
+        for (MeasurementResult result: mMeasurementResults) {
+            if (result.getId().equals(id)) {
+                return result;
+            }
+        }
+
+        return null;
+//        return mMeasurementResults.get(id);
     }
 
     public void addResult(MeasurementResult result) {
-        mMeasurementResults.put(result.getId(), result);
+        mMeasurementResults.add(result);
+//        mMeasurementResults.put(result.getId(), result);
+    }
+
+    public void removeResult(MeasurementResult result) {
+        mMeasurementResults.remove(result.getId());
+//        mMeasurementResults.remove(result.getId());
     }
 }

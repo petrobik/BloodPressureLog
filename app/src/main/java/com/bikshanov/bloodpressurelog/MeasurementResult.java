@@ -15,6 +15,7 @@ public class MeasurementResult {
     private String mHealth;
     private String mComment;
     private boolean mArrhythmia;
+    private String mArm;
 
     public MeasurementResult() {
         mId = UUID.randomUUID();
@@ -79,5 +80,13 @@ public class MeasurementResult {
 
     public void setArrhythmia(boolean arrhythmia) {
         mArrhythmia = arrhythmia;
+    }
+
+    public String getArm() {
+        return mArm;
+    }
+
+    public void setArm(String arm) {
+        mArm = arm;
     }
 }

@@ -1,25 +1,28 @@
 package com.bikshanov.bloodpressurelog;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import androidx.constraintlayout.solver.widgets.Helper;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.RadioButton;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +37,9 @@ public class MeasurementResultFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
 
+    private static final String ARM_LEFT = "left";
+    private static final String ARM_RIGHT = "right";
+
     private MeasurementResult mMeasurementResult;
     private TextInputEditText mSysPressureEditText;
     private TextInputEditText mDiaPressureEditText;
@@ -44,7 +50,9 @@ public class MeasurementResultFragment extends Fragment {
     private CheckBox mArrhythmiaCheckBox;
     private TextInputLayout mSysPressureInputLayout;
     private TextInputLayout mDiaPressureInputLayout;
-    private TextInputLayout mPulsePressureInputLayout;
+    private TextInputLayout mPulseInputLayout;
+    private RadioButton mRightArmRadioButton;
+    private RadioButton mLeftArmRadioButton;
 
     private Date mDate;
     private Date mTime;
@@ -87,30 +95,58 @@ public class MeasurementResultFragment extends Fragment {
                 getActivity().onBackPressed();
                 return true;
             case R.id.save_result:
-                saveMeasurement();
-                getActivity().finish();
+//                saveMeasurement();
+                checkValues();
+//                getActivity().finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void checkValues() {
+        if (!Helpers.isNumberValid(mSysPressureEditText.getText())) {
+            mSysPressureInputLayout.setError(getResources().getString(R.string.wrong_value));
+        } else if (!Helpers.isNumberValid(mDiaPressureEditText.getText())) {
+            mDiaPressureInputLayout.setError(getResources().getString(R.string.wrong_value));
+        } else if (!Helpers.isNumberValid(mPulseEditText.getText())) {
+            mPulseInputLayout.setError(getResources().getString(R.string.wrong_value));
+        } else {
+            mSysPressureInputLayout.setError(null);
+            mDiaPressureInputLayout.setError(null);
+            mPulseInputLayout.setError(null);
+
+            saveMeasurement();
+        }
+    }
+
     private void saveMeasurement() {
-        int sys = Integer.parseInt(mSysPressureEditText.getText().toString());
-        int dia = Integer.parseInt(mDiaPressureEditText.getText().toString());
-        int pulse = Integer.parseInt(mPulseEditText.getText().toString());
-        String comment = mCommentEditText.getText().toString();
 
         if (mMeasurementResult == null) {
             mMeasurementResult = new MeasurementResult();
             ResultsStore.get(getActivity()).addResult(mMeasurementResult);
         }
-        mMeasurementResult.setSysBloodPressure(sys);
-        mMeasurementResult.setDiaBloodPressure(dia);
-        mMeasurementResult.setPulse(pulse);
+
+        mMeasurementResult.setSysBloodPressure(Integer.parseInt(mSysPressureEditText.getText().toString()));
+        mMeasurementResult.setDiaBloodPressure(Integer.parseInt(mDiaPressureEditText.getText().toString()));
+        mMeasurementResult.setPulse(Integer.parseInt(mPulseEditText.getText().toString()));
+
+        if (Helpers.isEmpty(mCommentEditText)) {
+            mMeasurementResult.setComment("");
+        } else {
+            mMeasurementResult.setComment(mCommentEditText.getText().toString());
+        }
+
         mMeasurementResult.setDate(dateTime(mDate, mTime));
-        mMeasurementResult.setComment(comment);
         mMeasurementResult.setArrhythmia(mArrhythmiaCheckBox.isChecked());
+
+        if (mRightArmRadioButton.isChecked()) {
+            mMeasurementResult.setArm(ARM_RIGHT);
+        } else if (mLeftArmRadioButton.isChecked()) {
+            mMeasurementResult.setArm(ARM_LEFT);
+        }
+
+        getActivity().finish();
     }
 
     public Date dateTime(Date date, Date time) {
@@ -144,6 +180,13 @@ public class MeasurementResultFragment extends Fragment {
         mDateButton = (Button) v.findViewById(R.id.button_date);
         mTimeButton = (Button) v.findViewById(R.id.button_time);
 
+        mSysPressureInputLayout = v.findViewById(R.id.sysTextInputLayout);
+        mDiaPressureInputLayout = v.findViewById(R.id.diaTextInputLayout);
+        mPulseInputLayout = v.findViewById(R.id.pulseTextInputLayout);
+
+        mRightArmRadioButton = v.findViewById(R.id.arm_right);
+        mLeftArmRadioButton = v.findViewById(R.id.arm_left);
+
 //        mDate = new Date();
 //        mTime = mDate;
 
@@ -153,11 +196,20 @@ public class MeasurementResultFragment extends Fragment {
             int pulse = mMeasurementResult.getPulse();
             String comment = mMeasurementResult.getComment();
 
+            String arm = mMeasurementResult.getArm();
+
             mSysPressureEditText.setText(Integer.toString(sys));
             mDiaPressureEditText.setText(Integer.toString(dia));
             mPulseEditText.setText(Integer.toString(pulse));
             mCommentEditText.setText(comment);
             mArrhythmiaCheckBox.setChecked(mMeasurementResult.isArrhythmia());
+
+            if (arm == ARM_RIGHT) {
+                mRightArmRadioButton.setChecked(true);
+            } else if (arm == ARM_LEFT) {
+                mLeftArmRadioButton.setChecked(true);
+            }
+
             mDate = mMeasurementResult.getDate();
             mTime = mMeasurementResult.getDate();
             mDateButton.setText(Helpers.formatShortDate(mDate));
@@ -167,7 +219,71 @@ public class MeasurementResultFragment extends Fragment {
             mTime = mDate;
             mDateButton.setText(Helpers.formatShortDate(mDate));
             mTimeButton.setText(Helpers.formatTime(mTime));
+            mRightArmRadioButton.setChecked(true);
         }
+
+        mSysPressureEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (Helpers.isNumberValid(editable)) {
+                    mDiaPressureEditText.requestFocus();
+                    mSysPressureInputLayout.setError(null);
+                }
+            }
+        });
+
+        mDiaPressureEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (Helpers.isNumberValid(editable)) {
+                    mPulseEditText.requestFocus();
+                    mDiaPressureInputLayout.setError(null);
+                }
+            }
+        });
+
+        mPulseEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (Helpers.isNumberValid(editable)) {
+                    InputMethodManager imm =
+                            (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mPulseEditText.getWindowToken(), 0);
+                    mPulseEditText.clearFocus();
+                    mPulseInputLayout.setError(null);
+                }
+            }
+        });
 
 //        if (sys != 0) {
 //            mSysPressureEditText.setText(Integer.toString(sys));

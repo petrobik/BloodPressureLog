@@ -30,7 +30,10 @@
                 android:id="@+id/sys_pressure_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:maxLength="3"
+                android:nextFocusRight="@id/dia_pressure_value"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,7 +53,10 @@
                 android:id="@+id/dia_pressure_value"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number" />
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:maxLength="3"
+                android:nextFocusRight="@id/pulse_value"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +77,9 @@
                 android:id="@+id/pulse_value"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="3"
+                android:imeOptions="actionDone" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="@string/arrhythmia_label"
             app:layout_constraintEnd_toEndOf="parent"
@@ -92,21 +100,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:hint="@string/comment_hint"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox_arrhythmia">
+            app:layout_constraintTop_toBottomOf="@+id/arm_radio_group">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text" />
+                android:inputType="textCapSentences" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/radio_group_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/arm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox_arrhythmia" />
+
+        <RadioGroup
+            android:id="@+id/arm_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_caption">
+
+            <RadioButton
+                android:id="@+id/arm_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/arm_right" />
+
+            <RadioButton
+                android:id="@+id/arm_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/arm_left" />
+
+        </RadioGroup>
 
 
         <com.google.android.material.button.MaterialButton
@@ -114,7 +158,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/date_label"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             app:layout_constraintEnd_toStartOf="@+id/button_time"
@@ -128,7 +172,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/time_label"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             app:layout_constraintEnd_toEndOf="parent"

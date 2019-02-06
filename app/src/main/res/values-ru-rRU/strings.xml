@@ -14,8 +14,12 @@
     <string name="title_charts">Графики</string>
     <string name="title_statistics">Статистика</string>
     <string name="save">Сохранить</string>
-    <string name="comment_hint">Комментарий</string>
+    <string name="comment_hint">Примечание</string>
     <string name="dialog_discard">Выход</string>
     <string name="dialog_cancel">Отмена</string>
     <string name="dialog_message">Выйти без сохранения данных?</string>
+    <string name="wrong_value">Неверное значение</string>
+    <string name="arm">Рука</string>
+    <string name="arm_right">Правая</string>
+    <string name="arm_left">Левая</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.bikshanov.bloodpressurelog;
 
 import android.content.Context;
+import android.text.Editable;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -97,4 +98,9 @@ public class Helpers {
         return input.length() == 0;
     }
 
+    public static boolean isNumberValid(Editable text) {
+        String input = text.toString().trim();
+        return !(input.length() == 0) && (Integer.parseInt(input.toString()) >= 30)
+                && (Integer.parseInt(input.toString()) <= 300);
+    }
 }

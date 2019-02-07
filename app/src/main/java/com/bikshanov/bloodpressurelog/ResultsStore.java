@@ -3,9 +3,12 @@ package com.bikshanov.bloodpressurelog;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 public class ResultsStore {
@@ -26,18 +29,21 @@ public class ResultsStore {
 
         mMeasurementResults = new ArrayList<>();
 
+        Random random = new Random();
+
 //        mMeasurementResults = new LinkedHashMap<>();
-//        for (int i = 0; i < 100; i++) {
-//            MeasurementResult result = new MeasurementResult();
-//            result.setSysBloodPressure(110 + i);
-//            result.setDiaBloodPressure(70 + i);
-//            result.setPulse(60 + i);
-//            result.setHealth("Normal");
-//            result.setComment("Comment " + i);
-//            result.setArrhythmia(i % 2 == 0);
-//            mMeasurementResults.add(result);
-////            mMeasurementResults.put(result.getId(), result);
-//        }
+        for (int i = 0; i < 20; i++) {
+            MeasurementResult result = new MeasurementResult();
+            result.setSysBloodPressure(random.nextInt(100 + 1) + 100);
+            result.setDiaBloodPressure(random.nextInt(50 + 1) + 50);
+            result.setPulse(60 + i);
+            result.setHealth("Normal");
+            result.setComment("Comment " + i);
+            result.setArrhythmia(i % 2 == 0);
+            result.setArm("right");
+            mMeasurementResults.add(result);
+//            mMeasurementResults.put(result.getId(), result);
+        }
     }
 
     public List<MeasurementResult> getMeasurementResults() {
@@ -62,7 +68,7 @@ public class ResultsStore {
     }
 
     public void removeResult(MeasurementResult result) {
-        mMeasurementResults.remove(result.getId());
-//        mMeasurementResults.remove(result.getId());
+//        MeasurementResult result = getMeasurementResult(resultId)
+        mMeasurementResults.remove(result);
     }
 }

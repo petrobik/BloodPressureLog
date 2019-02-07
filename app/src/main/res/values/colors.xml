@@ -8,6 +8,7 @@
     <color name="red">#FF9100</color>
     <color name="orange">#FFC400</color>
     <color name="deep_red">#FF3D00</color>
-    <color name="colorPrimaryText">#5B5B5B</color>
+    <color name="blue">#00B0FF</color>
+        <color name="colorPrimaryText">#5B5B5B</color>
 
 </resources>

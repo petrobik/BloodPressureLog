@@ -13,10 +13,13 @@
     <string name="title_charts">Charts</string>
     <string name="title_statistics">Statistics</string>
     <string name="save">Save</string>
+    <string name="delete">Delete</string>
     <string name="comment_hint">Note</string>
     <string name="dialog_discard">Discard</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_delete">Delete</string>
     <string name="dialog_message">Discard changes?</string>
+    <string name="delete_dialog_message">Are you sure you want to delete?</string>
     <string name="wrong_value">Invalid value</string>
     <string name="arm">Arm</string>
     <string name="arm_right">Right</string>

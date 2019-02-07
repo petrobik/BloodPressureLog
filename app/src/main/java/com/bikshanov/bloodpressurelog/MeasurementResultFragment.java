@@ -2,12 +2,13 @@ package com.bikshanov.bloodpressurelog;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import androidx.constraintlayout.solver.widgets.Helper;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -39,6 +40,8 @@ public class MeasurementResultFragment extends Fragment {
 
     private static final String ARM_LEFT = "left";
     private static final String ARM_RIGHT = "right";
+
+    private boolean flag_new = true;
 
     private MeasurementResult mMeasurementResult;
     private TextInputEditText mSysPressureEditText;
@@ -78,6 +81,7 @@ public class MeasurementResultFragment extends Fragment {
 
         if (resultId != null) {
             mMeasurementResult = ResultsStore.get(getActivity()).getMeasurementResult(resultId);
+            flag_new = false;
         }
     }
 
@@ -85,6 +89,9 @@ public class MeasurementResultFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_result, menu);
+        if (flag_new) {
+            menu.findItem(R.id.delete_result).setVisible(false);
+        }
     }
 
     @Override
@@ -99,9 +106,30 @@ public class MeasurementResultFragment extends Fragment {
                 checkValues();
 //                getActivity().finish();
                 return true;
+            case R.id.delete_result:
+                removeMeasurement();
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void removeMeasurement() {
+        AlertDialog.Builder confirmDeleteDialog = new AlertDialog.Builder(getActivity());
+        confirmDeleteDialog.setMessage(R.string.delete_dialog_message);
+        confirmDeleteDialog.setPositiveButton(R.string.dialog_delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ResultsStore.get(getActivity()).removeResult(mMeasurementResult);
+                getActivity().finish();
+            }
+        });
+        confirmDeleteDialog.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        confirmDeleteDialog.show();
     }
 
     private void checkValues() {
@@ -186,9 +214,6 @@ public class MeasurementResultFragment extends Fragment {
 
         mRightArmRadioButton = v.findViewById(R.id.arm_right);
         mLeftArmRadioButton = v.findViewById(R.id.arm_left);
-
-//        mDate = new Date();
-//        mTime = mDate;
 
         if (mMeasurementResult != null) {
             int sys = mMeasurementResult.getSysBloodPressure();

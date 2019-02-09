@@ -86,6 +86,13 @@ public class MeasurementResultFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+        ResultsStore.get(getActivity()).updateResult(mMeasurementResult);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_result, menu);

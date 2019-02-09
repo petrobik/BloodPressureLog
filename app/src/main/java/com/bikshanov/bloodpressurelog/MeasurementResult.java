@@ -18,7 +18,13 @@ public class MeasurementResult {
     private String mArm;
 
     public MeasurementResult() {
-        mId = UUID.randomUUID();
+        this(UUID.randomUUID());
+//        mId = UUID.randomUUID();
+//        mDate = new Date();
+    }
+
+    public MeasurementResult(UUID id) {
+        mId = id;
         mDate = new Date();
     }
 

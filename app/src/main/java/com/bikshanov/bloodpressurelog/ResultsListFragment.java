@@ -83,14 +83,14 @@ public class ResultsListFragment extends Fragment {
         } else {
 
             // Sort list of measurements by date before setting the adapter
-        if (measurementResults.size() > 0) {
-            Collections.sort(measurementResults, new Comparator<MeasurementResult>() {
-                @Override
-                public int compare(MeasurementResult result1, MeasurementResult result2) {
-                    return -result1.getDate().compareTo(result2.getDate());
-                }
-            });
-        }
+//        if (measurementResults.size() > 0) {
+//            Collections.sort(measurementResults, new Comparator<MeasurementResult>() {
+//                @Override
+//                public int compare(MeasurementResult result1, MeasurementResult result2) {
+//                    return -result1.getDate().compareTo(result2.getDate());
+//                }
+//            });
+//        }
 
             mAdapter.setResults(measurementResults);
 
@@ -107,6 +107,7 @@ public class ResultsListFragment extends Fragment {
         private TextView mPressureTextView;
         private TextView mPulseTextView;
         private TextView mDateTextView;
+        private TextView mTimeTextView;
         private View mBorderView;
         private ImageView mArrhythmiaImageView;
 
@@ -119,6 +120,7 @@ public class ResultsListFragment extends Fragment {
             mPressureTextView = (TextView) itemView.findViewById(R.id.pressure_value);
             mPulseTextView = (TextView) itemView.findViewById(R.id.pulse_value);
             mDateTextView = (TextView) itemView.findViewById(R.id.date);
+            mTimeTextView = (TextView) itemView.findViewById(R.id.time);
             mBorderView = itemView.findViewById(R.id.color_border);
             mArrhythmiaImageView = (ImageView) itemView.findViewById(R.id.arrhythmia);
         }
@@ -129,7 +131,8 @@ public class ResultsListFragment extends Fragment {
             String pulseValue = Integer.toString(mResult.getPulse());
             mPressureTextView.setText(pressureValue);
             mPulseTextView.setText(pulseValue);
-            mDateTextView.setText(Helpers.formatFullDate(mResult.getDate()));
+            mDateTextView.setText(Helpers.formatShortDate(mResult.getDate()));
+            mTimeTextView.setText(Helpers.formatTime(mResult.getDate()));
             mBorderView.setBackgroundColor(Helpers.pressureToColor(getActivity(),
                     result.getSysBloodPressure(), result.getDiaBloodPressure()));
             mArrhythmiaImageView.setVisibility(mResult.isArrhythmia() ? View.VISIBLE : View.GONE);

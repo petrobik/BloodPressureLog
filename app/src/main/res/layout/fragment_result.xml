@@ -9,7 +9,10 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="32dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:focusableInTouchMode="true"
@@ -152,7 +155,6 @@
 
         </RadioGroup>
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_date"
             style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -180,6 +182,24 @@
             app:layout_constraintStart_toEndOf="@+id/button_date"
             app:layout_constraintTop_toBottomOf="@+id/commentTextInputLayout" />
 
+        <TextView
+            android:id="@+id/sys_abbreviation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/sys_abbreviation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_date" />
+
+        <TextView
+            android:id="@+id/dia_abbreviation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/dia_abbreviation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sys_abbreviation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

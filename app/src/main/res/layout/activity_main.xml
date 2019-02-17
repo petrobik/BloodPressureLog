@@ -16,7 +16,8 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="8dp"
+
+        app:elevation="8dp"
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         app:itemTextAppearanceActive="@style/TextAppearance.MaterialComponents.Caption"
         app:itemTextAppearanceInactive="@style/TextAppearance.MaterialComponents.Caption"

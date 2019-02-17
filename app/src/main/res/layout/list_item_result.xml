@@ -31,8 +31,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/sys_label"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="20sp"
+            android:textAlignment="viewStart"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,8 +46,7 @@
             android:layout_marginBottom="8dp"
             android:text="@string/pulse_label"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent" />
@@ -72,7 +71,6 @@
             android:layout_marginBottom="4dp"
             android:text="@string/date_label"
             android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimaryText"
             app:layout_constraintBottom_toTopOf="@+id/time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -85,7 +83,6 @@
             android:layout_marginBottom="8dp"
             android:text="@string/date_label"
             android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimaryText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date" />

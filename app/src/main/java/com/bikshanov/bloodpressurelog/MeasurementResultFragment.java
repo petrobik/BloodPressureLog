@@ -89,7 +89,7 @@ public class MeasurementResultFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        ResultsStore.get(getActivity()).updateResult(mMeasurementResult);
+
     }
 
     @Override
@@ -159,7 +159,6 @@ public class MeasurementResultFragment extends Fragment {
 
         if (mMeasurementResult == null) {
             mMeasurementResult = new MeasurementResult();
-            ResultsStore.get(getActivity()).addResult(mMeasurementResult);
         }
 
         mMeasurementResult.setSysBloodPressure(Integer.parseInt(mSysPressureEditText.getText().toString()));
@@ -179,6 +178,12 @@ public class MeasurementResultFragment extends Fragment {
             mMeasurementResult.setArm(ARM_RIGHT);
         } else if (mLeftArmRadioButton.isChecked()) {
             mMeasurementResult.setArm(ARM_LEFT);
+        }
+
+        if (flag_new) {
+            ResultsStore.get(getActivity()).addResult(mMeasurementResult);
+        } else {
+            ResultsStore.get(getActivity()).updateResult(mMeasurementResult);
         }
 
         getActivity().finish();
@@ -228,7 +233,7 @@ public class MeasurementResultFragment extends Fragment {
             int pulse = mMeasurementResult.getPulse();
             String comment = mMeasurementResult.getComment();
 
-            String arm = mMeasurementResult.getArm();
+            String arm = mMeasurementResult.getArm().trim();
 
             mSysPressureEditText.setText(Integer.toString(sys));
             mDiaPressureEditText.setText(Integer.toString(dia));
@@ -236,21 +241,22 @@ public class MeasurementResultFragment extends Fragment {
             mCommentEditText.setText(comment);
             mArrhythmiaCheckBox.setChecked(mMeasurementResult.isArrhythmia());
 
-            if (arm == ARM_RIGHT) {
+            if (arm.equals(ARM_RIGHT)) {
                 mRightArmRadioButton.setChecked(true);
-            } else if (arm == ARM_LEFT) {
+            } else if (arm.equals(ARM_LEFT)) {
                 mLeftArmRadioButton.setChecked(true);
             }
 
             mDate = mMeasurementResult.getDate();
             mTime = mMeasurementResult.getDate();
-            mDateButton.setText(Helpers.formatShortDate(mDate));
-            mTimeButton.setText(Helpers.formatTime(mTime));
+            mDateButton.setText(Helpers.formatShortDate(getContext(), mDate));
+//            mTimeButton.setText(Helpers.formatTime(mTime));
+            mTimeButton.setText(Helpers.formatTime(getContext(), mTime));
         } else {
             mDate = new Date();
             mTime = mDate;
-            mDateButton.setText(Helpers.formatShortDate(mDate));
-            mTimeButton.setText(Helpers.formatTime(mTime));
+            mDateButton.setText(Helpers.formatShortDate(getContext(), mDate));
+            mTimeButton.setText(Helpers.formatTime(getContext(), mTime));
             mRightArmRadioButton.setChecked(true);
         }
 
@@ -404,12 +410,13 @@ public class MeasurementResultFragment extends Fragment {
     private void updateTime(Date time) {
 //        mTimeButton.setText(Helpers.formatTime(mMeasurementResult.getDate()));
 //        mTime = mMeasurementResult.getDate();
-        mTimeButton.setText(Helpers.formatTime(time));
+//        mTimeButton.setText(Helpers.formatTime(time));
+        mTimeButton.setText(Helpers.formatTime(getContext(), time));
     }
 
     private void updateDate(Date date) {
 //        mDateButton.setText(Helpers.formatShortDate(mMeasurementResult.getDate()));
 //        mDate = mMeasurementResult.getDate();
-        mDateButton.setText(Helpers.formatShortDate(date));
+        mDateButton.setText(Helpers.formatShortDate(getContext(), date));
     }
 }

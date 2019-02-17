@@ -12,6 +12,7 @@ import com.bikshanov.bloodpressurelog.database.ResultsDbSchema;
 import com.bikshanov.bloodpressurelog.database.ResultsDbSchema.ResultsTable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;

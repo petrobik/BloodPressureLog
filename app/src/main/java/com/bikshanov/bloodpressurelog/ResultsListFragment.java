@@ -27,6 +27,7 @@ public class ResultsListFragment extends Fragment {
     private ResultsAdapter mAdapter;
     private int mAdapterPosition;
     private FloatingActionButton mFloatingActionButton;
+    private TextView mEmptyTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class ResultsListFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        mEmptyTextView = view.findViewById(R.id.empty_text);
 
         updateUI();
 
@@ -98,6 +101,13 @@ public class ResultsListFragment extends Fragment {
 
             mAdapter.notifyDataSetChanged();
 
+            if (mAdapter.getItemCount() == 0) {
+                mResultsRecyclerView.setVisibility(View.GONE);
+                mEmptyTextView.setVisibility(View.VISIBLE);
+            } else {
+                mResultsRecyclerView.setVisibility(View.VISIBLE);
+                mEmptyTextView.setVisibility(View.GONE);
+            }
 //            mAdapter.notifyItemChanged(mAdapterPosition);
         }
     }
@@ -131,8 +141,9 @@ public class ResultsListFragment extends Fragment {
             String pulseValue = Integer.toString(mResult.getPulse());
             mPressureTextView.setText(pressureValue);
             mPulseTextView.setText(pulseValue);
-            mDateTextView.setText(Helpers.formatShortDate(mResult.getDate()));
-            mTimeTextView.setText(Helpers.formatTime(mResult.getDate()));
+            mDateTextView.setText(Helpers.formatShortDate(getContext(), mResult.getDate()));
+//            mTimeTextView.setText(Helpers.formatTime(mResult.getDate()));
+            mTimeTextView.setText(Helpers.formatTime(getContext(), mResult.getDate()));
             mBorderView.setBackgroundColor(Helpers.pressureToColor(getActivity(),
                     result.getSysBloodPressure(), result.getDiaBloodPressure()));
             mArrhythmiaImageView.setVisibility(mResult.isArrhythmia() ? View.VISIBLE : View.GONE);

@@ -11,6 +11,10 @@
     <style name="DialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorSecondary">@color/colorSecondary</item>
     </style>
+    
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 
 
 </resources>

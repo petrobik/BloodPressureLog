@@ -2,20 +2,25 @@ package com.bikshanov.bloodpressurelog;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -35,8 +40,14 @@ public class ChartFragment extends Fragment {
 
         lineChart.setTouchEnabled(true);
         lineChart.setAutoScaleMinMaxEnabled(true);
+        lineChart.getDescription().setEnabled(false);
+        lineChart.setPinchZoom(false);
+        lineChart.setScaleYEnabled(false);
+        lineChart.setExtraBottomOffset(20);
+        lineChart.setNoDataText(getResources().getString(R.string.chart_empty));
+        lineChart.setNoDataTextColor(getResources().getColor(R.color.colorPrimaryText));
 
-        LimitLine sysLimit = new LimitLine(130);
+        LimitLine sysLimit = new LimitLine(120);
         LimitLine diaLimit = new LimitLine(80);
 
         sysLimit.setLineColor(getResources().getColor(R.color.green));
@@ -48,7 +59,7 @@ public class ChartFragment extends Fragment {
         YAxis yAxis = lineChart.getAxisLeft();
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        yAxis.setAxisMinimum(20);
+        yAxis.setAxisMinimum(20);
 //        yAxis.setAxisMaximum(300);
         yAxis.setLabelCount(10);
 
@@ -64,20 +75,37 @@ public class ChartFragment extends Fragment {
 
         List<MeasurementResult> results = ResultsStore.get(getActivity()).getMeasurementResults();
 
+//         Sort list of measurements by date before setting the adapter
+        if (results.size() > 0) {
+            Collections.sort(results, new Comparator<MeasurementResult>() {
+                @Override
+                public int compare(MeasurementResult result1, MeasurementResult result2) {
+                    return result1.getDate().compareTo(result2.getDate());
+                }
+            });
+        }
+
+        String[] dateValues = new String[results.size()];
+
         for (int i = 0; i < results.size(); i++) {
             sysEntries.add(new Entry((float) i, (float) results.get(i).getSysBloodPressure()));
             diaEntries.add(new Entry((float) i, (float) results.get(i).getDiaBloodPressure()));
+            dateValues[i] = Helpers.formatShortDate(getActivity(), results.get(i).getDate());
         }
+
+        xAxis.setGranularity(1f);
+        xAxis.setLabelRotationAngle(-90);
+        xAxis.setValueFormatter(new DateXAxisValueFormatter(dateValues));
 
 //        for (MeasurementResult result: ResultsStore.get(getActivity()).getMeasurementResults()) {
 //            int i = getId();
 //            sysEntries.add(new Entry((float) i, (float) result.getSysBloodPressure()));
 //        }
 
-        LineDataSet sysDataSet = new LineDataSet(sysEntries, "SYS");
-        LineDataSet diaDataSet = new LineDataSet(diaEntries, "DIA");
+        LineDataSet sysDataSet = new LineDataSet(sysEntries, getResources().getString(R.string.sys_label));
+        LineDataSet diaDataSet = new LineDataSet(diaEntries, getResources().getString(R.string.dia_label));
 
-//        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//        sysDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 
         int sysColor = Color.RED;
         sysDataSet.setColor(sysColor);
@@ -99,14 +127,30 @@ public class ChartFragment extends Fragment {
         lineData.addDataSet(sysDataSet);
         lineData.addDataSet(diaDataSet);
 
-        lineChart.setData(lineData);
+        if (sysEntries.size() >= 5) {
+            lineChart.setData(lineData);
+        }
+
+//        lineChart.setData(lineData);
 //        lineChart.setData(diaLineData);
-
-
 
         lineChart.invalidate();
 
         return view;
 
+    }
+
+    private class DateXAxisValueFormatter implements IAxisValueFormatter {
+
+        private String[] mValues;
+
+        public DateXAxisValueFormatter(String[] values) {
+            mValues = values;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return mValues[(int) value];
+        }
     }
 }

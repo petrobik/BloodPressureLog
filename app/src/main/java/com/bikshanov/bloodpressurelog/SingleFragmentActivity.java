@@ -11,6 +11,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);

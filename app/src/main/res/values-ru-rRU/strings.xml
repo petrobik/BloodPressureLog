@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Дневник давления</string>
-    <string name="sys_label">СИС</string>
-    <string name="dia_label">ДИА</string>
+    <string name="sys_label">САД</string>
+    <string name="dia_label">ДАД</string>
     <string name="pulse_label">Пульс</string>
-    <string name="sys_hint">СИС, мм рт. ст.</string>
-    <string name="dia_hint">ДИА, мм рт.ст.</string>
+    <string name="sys_hint">САД, мм рт. ст.</string>
+    <string name="dia_hint">ДАД, мм рт.ст.</string>
     <string name="pulse_hint">ПУЛЬС, уд/мин</string>
     <string name="date_label">Дата</string>
     <string name="time_label">Время</string>
@@ -25,4 +25,35 @@
     <string name="arm">Рука</string>
     <string name="arm_right">Правая</string>
     <string name="arm_left">Левая</string>
+    <string name="chart_empty">Недостаточно данных для построения графиков</string>
+    <string name="list_empty">Список пуст, добавьте измерения</string>
+    <string name="min">Минимум</string>
+    <string name="max">Максимум</string>
+    <string name="average">Среднее</string>
+    <string name="systolic">САД</string>
+    <string name="diastolic">ДАД</string>
+    <string name="pulse">Пульс</string>
+    <string name="sys_abbreviation">* САД - систолическое артериальное давление</string>
+    <string name="dia_abbreviation">* ДАД - диастолическое артериальное давление</string>
+    <string name="category">Категория</string>
+    <string name="optimal">Оптимальное</string>
+    <string name="normal">Нормальное</string>
+    <string name="elevated">Высокое\nнормальное</string>
+    <string name="stage1">АГ 1 степени</string>
+    <string name="stage2">АГ 2 степени</string>
+    <string name="stage3">АГ 3 степени</string>
+    <string name="sys_optimal">&lt; 120</string>
+    <string name="dia_optimal">&lt; 80</string>
+    <string name="sys_normal">120-129</string>
+    <string name="dia_normal">80-84</string>
+    <string name="sys_elevated">130-139</string>
+    <string name="dia_elevated">85-89</string>
+    <string name="sys_stage1">140-159</string>
+    <string name="dia_stage1">90-99</string>
+    <string name="sys_stage2">160-179</string>
+    <string name="dia_stage2">100-109</string>
+    <string name="sys_stage3">&gt; 180</string>
+    <string name="dia_stage3">&gt; 110</string>
+    <string name="and_or">и/или</string>
+    <string name="and">и</string>
 </resources>

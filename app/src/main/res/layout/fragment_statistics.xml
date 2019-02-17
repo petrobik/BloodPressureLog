@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StatisticsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="56dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:focusable="true"
+            android:orientation="horizontal"
+            app:cardCornerRadius="4dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="3, 2, 1">
+
+                <TableRow
+                    android:padding="8dp">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/min"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/max"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:padding="8dp">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/systolic"/>
+
+                    <TextView
+                        android:id="@+id/min_sys_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Min"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/max_sys_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Max"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/average_sys_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Average"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:padding="8dp">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/diastolic"/>
+
+                    <TextView
+                        android:id="@+id/min_dia_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Min"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/max_dia_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Max"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/average_dia_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Average"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:padding="8dp">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pulse"/>
+
+                    <TextView
+                        android:id="@+id/min_pulse_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Min"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/max_pulse_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Max"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/average_pulse_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Average"
+                        android:textAlignment="center" />
+                </TableRow>
+            </TableLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:focusable="true"
+            android:orientation="horizontal"
+            app:cardCornerRadius="4dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="3, 1">
+
+                <TableRow
+                    android:padding="8dp">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/category"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/systolic"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/diastolic"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:background="@color/green"
+                    android:padding="8dp">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/optimal"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sys_optimal"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/and"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dia_optimal"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                    android:padding="8dp"
+                    android:background="@color/light_green">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/normal"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sys_normal"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/and_or"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dia_normal"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                    android:padding="8dp"
+                    android:background="@color/yellow">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/elevated"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sys_elevated"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/and_or"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dia_elevated"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                    android:padding="8dp"
+                    android:background="@color/orange">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stage1"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sys_stage1"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/and_or"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dia_stage1"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                    android:padding="8dp"
+                    android:background="@color/red">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stage2"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sys_stage2"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/and_or"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dia_stage2"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                    android:padding="8dp"
+                    android:background="@color/deep_red">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stage3"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sys_stage3"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/and_or"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dia_stage3"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_vertical"/>
+                </TableRow>
+            </TableLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>

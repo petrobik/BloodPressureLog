@@ -13,6 +13,7 @@
     <string name="title_readings">Показания</string>
     <string name="title_charts">Графики</string>
     <string name="title_statistics">Статистика</string>
+    <string name="title_info">Информация</string>
     <string name="save">Сохранить</string>
     <string name="delete">Удалить</string>
     <string name="comment_hint">Примечание</string>
@@ -56,4 +57,10 @@
     <string name="dia_stage3">&gt; 110</string>
     <string name="and_or">и/или</string>
     <string name="and">и</string>
+    <string name="empty">Н/д</string>
+    <string name="fragment_list_title">Показания</string>
+    <string name="fragment_charts_title">Графики</string>
+    <string name="fragment_statistics_title">Статистика</string>
+    <string name="edit_title">Редактирование</string>
+    <string name="new_title">Новая запись</string>
 </resources>

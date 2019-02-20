@@ -212,6 +212,12 @@ public class MeasurementResultFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_result, container, false);
 
+        if (flag_new) {
+            getActivity().setTitle(getResources().getString(R.string.new_title));
+        } else {
+            getActivity().setTitle(getResources().getString(R.string.edit_title));
+        }
+
         mCommentEditText = (TextInputEditText) v.findViewById(R.id.comment);
         mSysPressureEditText = (TextInputEditText) v.findViewById(R.id.sys_pressure_value);
         mDiaPressureEditText = (TextInputEditText) v.findViewById(R.id.dia_pressure_value);

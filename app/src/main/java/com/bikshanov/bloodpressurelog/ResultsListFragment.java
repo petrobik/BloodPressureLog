@@ -33,6 +33,9 @@ public class ResultsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_result_list, container, false);
+
+        getActivity().setTitle(getResources().getString(R.string.fragment_list_title));
+
         mResultsRecyclerView = (RecyclerView) view.findViewById(R.id.results_recycler_view);
 
         mResultsRecyclerView.setHasFixedSize(true);

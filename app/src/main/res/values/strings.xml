@@ -12,6 +12,7 @@
     <string name="title_readings">Readings</string>
     <string name="title_charts">Charts</string>
     <string name="title_statistics">Statistics</string>
+    <string name="title_info">Info</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
     <string name="comment_hint">Note</string>
@@ -55,4 +56,13 @@
     <string name="dia_stage3">&gt; 110</string>
     <string name="and_or">and/or</string>
     <string name="and">and</string>
-    </resources>
+    <string name="empty">N/a</string>
+    <string name="fragment_list_title">Readings</string>
+    <string name="fragment_charts_title">Charts</string>
+    <string name="fragment_statistics_title">Statistics</string>
+    <string name="edit_title">Edit reading</string>
+    <string name="new_title">New reading</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

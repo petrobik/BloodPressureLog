@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
                     isFab = false;
                     loadFragment(new StatisticsFragment());
                     return true;
+                case R.id.navigation_info:
+                    isFab = false;
+                    loadFragment(new InfoFragment());
+                    return true;
             }
 
             return false;

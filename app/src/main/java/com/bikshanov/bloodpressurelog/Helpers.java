@@ -106,6 +106,59 @@ public class Helpers {
         return ContextCompat.getColor(context, R.color.green);
     }
 
+    public static int getPressureCategory(int sysPressure, int diaPressure) {
+
+        final int NORMAL = 100;
+        final int ELEVATED = 200;
+        final int STAGE1 = 300;
+        final int STAGE2 = 400;
+        final int STAGE3 = 500;
+        final int OPTIMAL = 600;
+
+        int sys = NORMAL;
+        int dia = NORMAL;
+        int pressure = NORMAL;
+
+        if (sysPressure >= 120 && sysPressure <= 129) {
+            sys = NORMAL;
+        } else if (sysPressure >= 130 && sysPressure <= 139) {
+            sys = ELEVATED;
+        } else if (sysPressure >= 140 && sysPressure <= 159) {
+            sys = STAGE1;
+        } else if (sysPressure >= 160 && sysPressure <= 179) {
+            sys = STAGE2;
+        } else if (sysPressure >= 180) {
+            sys = STAGE3;
+        }
+
+        if (diaPressure >= 80 && diaPressure <= 84) {
+            dia = NORMAL;
+        }else if (diaPressure >= 85 && diaPressure <= 89) {
+            dia = ELEVATED;
+        } else if (diaPressure >= 90 && diaPressure <= 99) {
+            dia = STAGE1;
+        } else if (diaPressure >= 100 && diaPressure <= 109) {
+            dia = STAGE2;
+        } else if (diaPressure >= 110) {
+            dia = STAGE3;
+        } else if (diaPressure < 80) {
+            dia = OPTIMAL;
+        }
+
+        if (sys > dia || sys == dia) {
+            pressure = sys;
+        } else if (sys < dia) {
+            pressure = dia;
+        }
+
+        if (sysPressure < 120 && diaPressure < 80) {
+            pressure = OPTIMAL;
+        }
+
+        return pressure;
+    }
+
+
     public static boolean isEmpty(@NonNull EditText editText) {
         String input = editText.getText().toString().trim();
         return input.length() == 0;

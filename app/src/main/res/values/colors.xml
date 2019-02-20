@@ -10,6 +10,7 @@
     <color name="orange">#FFC400</color>
     <color name="deep_red">#FF3D00</color>
     <color name="blue">#00B0FF</color>
+    <color name="caption">#E0F7FA</color>
         <color name="colorPrimaryText">#5B5B5B</color>
 
 </resources>

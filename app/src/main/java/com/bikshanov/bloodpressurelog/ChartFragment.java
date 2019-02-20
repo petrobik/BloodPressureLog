@@ -1,12 +1,13 @@
 package com.bikshanov.bloodpressurelog;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.LimitLine;
@@ -29,12 +30,21 @@ import androidx.fragment.app.Fragment;
 
 public class ChartFragment extends Fragment {
 
+    public static final String TITLE = "Charts";
+
+    public static ChartFragment newInstance() {
+        ChartFragment fragment = new ChartFragment();
+
+        return fragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_chart, container, false);
+
+        getActivity().setTitle(getResources().getString(R.string.fragment_charts_title));
 
         LineChart lineChart = view.findViewById(R.id.chart);
 
@@ -53,15 +63,12 @@ public class ChartFragment extends Fragment {
         sysLimit.setLineColor(getResources().getColor(R.color.green));
         diaLimit.setLineColor(getResources().getColor(R.color.green));
 
-
         YAxis yAxisRight = lineChart.getAxisRight();
         yAxisRight.setEnabled(false);
         YAxis yAxis = lineChart.getAxisLeft();
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         yAxis.setAxisMinimum(20);
-//        yAxis.setAxisMaximum(300);
-        yAxis.setLabelCount(10);
 
         yAxis.addLimitLine(sysLimit);
         yAxis.addLimitLine(diaLimit);
@@ -70,6 +77,7 @@ public class ChartFragment extends Fragment {
 
         List<Entry> sysEntries = new ArrayList<>();
         List<Entry> diaEntries = new ArrayList<>();
+        List<Entry> pulseEntries = new ArrayList<>();
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
@@ -90,11 +98,17 @@ public class ChartFragment extends Fragment {
         for (int i = 0; i < results.size(); i++) {
             sysEntries.add(new Entry((float) i, (float) results.get(i).getSysBloodPressure()));
             diaEntries.add(new Entry((float) i, (float) results.get(i).getDiaBloodPressure()));
+            pulseEntries.add(new Entry((float) i, (float) results.get(i).getPulse()));
             dateValues[i] = Helpers.formatShortDate(getActivity(), results.get(i).getDate());
         }
 
         xAxis.setGranularity(1f);
-        xAxis.setLabelRotationAngle(-90);
+
+        if (isPortrait()) {
+            yAxis.setLabelCount(10);
+            xAxis.setLabelRotationAngle(-90);
+        }
+
         xAxis.setValueFormatter(new DateXAxisValueFormatter(dateValues));
 
 //        for (MeasurementResult result: ResultsStore.get(getActivity()).getMeasurementResults()) {
@@ -104,6 +118,7 @@ public class ChartFragment extends Fragment {
 
         LineDataSet sysDataSet = new LineDataSet(sysEntries, getResources().getString(R.string.sys_label));
         LineDataSet diaDataSet = new LineDataSet(diaEntries, getResources().getString(R.string.dia_label));
+        LineDataSet pulseDataSet = new LineDataSet(pulseEntries, getResources().getString(R.string.pulse_label));
 
 //        sysDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 
@@ -123,21 +138,35 @@ public class ChartFragment extends Fragment {
         diaDataSet.setDrawHighlightIndicators(false);
         diaDataSet.setDrawValues(false);
 
+        int pulseColor = Color.MAGENTA;
+        pulseDataSet.setColor(pulseColor);
+        pulseDataSet.setLineWidth(3);
+        pulseDataSet.setCircleColor(pulseColor);
+        pulseDataSet.setCircleHoleColor(pulseColor);
+        pulseDataSet.setDrawHighlightIndicators(false);
+        pulseDataSet.setDrawValues(false);
+
         LineData lineData = new LineData();
         lineData.addDataSet(sysDataSet);
         lineData.addDataSet(diaDataSet);
+        lineData.addDataSet(pulseDataSet);
 
         if (sysEntries.size() >= 5) {
             lineChart.setData(lineData);
         }
 
-//        lineChart.setData(lineData);
-//        lineChart.setData(diaLineData);
-
         lineChart.invalidate();
 
         return view;
 
+    }
+
+    public boolean isPortrait() {
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return true;
+        }
+        return false;
     }
 
     private class DateXAxisValueFormatter implements IAxisValueFormatter {

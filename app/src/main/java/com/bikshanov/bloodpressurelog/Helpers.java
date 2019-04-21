@@ -49,7 +49,7 @@ public class Helpers {
         final int STAGE1 = 300;
         final int STAGE2 = 400;
         final int STAGE3 = 500;
-        final int OPTIMAL = 600;
+        final int OPTIMAL = 50;
 
         int sys = NORMAL;
         int dia = NORMAL;
@@ -65,6 +65,8 @@ public class Helpers {
             sys = STAGE2;
         } else if (sysPressure >= 180) {
             sys = STAGE3;
+        } else if (sysPressure < 120) {
+            sys = OPTIMAL;
         }
 
         if (diaPressure >= 80 && diaPressure <= 84) {
@@ -87,9 +89,9 @@ public class Helpers {
             pressure = dia;
         }
 
-        if (sysPressure < 120 && diaPressure < 80) {
-            pressure = OPTIMAL;
-        }
+//        if (sysPressure < 120 && diaPressure < 80) {
+//            pressure = OPTIMAL;
+//        }
 
         if (pressure == NORMAL) {
             return ContextCompat.getColor(context, R.color.light_green);
@@ -113,7 +115,7 @@ public class Helpers {
         final int STAGE1 = 300;
         final int STAGE2 = 400;
         final int STAGE3 = 500;
-        final int OPTIMAL = 600;
+        final int OPTIMAL = 50;
 
         int sys = NORMAL;
         int dia = NORMAL;
@@ -129,6 +131,8 @@ public class Helpers {
             sys = STAGE2;
         } else if (sysPressure >= 180) {
             sys = STAGE3;
+        } else if (sysPressure < 120) {
+            sys = OPTIMAL;
         }
 
         if (diaPressure >= 80 && diaPressure <= 84) {
@@ -151,9 +155,9 @@ public class Helpers {
             pressure = dia;
         }
 
-        if (sysPressure < 120 && diaPressure < 80) {
-            pressure = OPTIMAL;
-        }
+//        if (sysPressure < 120 && diaPressure < 80) {
+//            pressure = OPTIMAL;
+//        }
 
         return pressure;
     }

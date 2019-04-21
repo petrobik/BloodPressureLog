@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.util.Measure;
+import android.icu.util.MeasureUnit;
 
 import com.bikshanov.bloodpressurelog.database.ResultCursorWrapper;
 import com.bikshanov.bloodpressurelog.database.ResultsBaseHelper;
@@ -13,6 +15,7 @@ import com.bikshanov.bloodpressurelog.database.ResultsDbSchema.ResultsTable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -157,5 +160,17 @@ public class ResultsStore {
         values.put(ResultsTable.Cols.DATE, result.getDate().getTime());
 
         return values;
+    }
+
+    public List<MeasurementResult> getLastResults(Date date) {
+        List<MeasurementResult> lastResults = new ArrayList<>();
+
+        for (MeasurementResult result: getMeasurementResults()) {
+            if (result.getDate().after(date)) {
+                lastResults.add(result);
+            }
+        }
+
+        return lastResults;
     }
 }

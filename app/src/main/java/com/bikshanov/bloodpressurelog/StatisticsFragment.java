@@ -49,7 +49,7 @@ public class StatisticsFragment extends Fragment {
     private final int STAGE1 = 300;
     private final int STAGE2 = 400;
     private final int STAGE3 = 500;
-    private final int OPTIMAL = 600;
+    private final int OPTIMAL = 50;
 
     public static StatisticsFragment newInstance() {
         StatisticsFragment fragment = new StatisticsFragment();
@@ -147,7 +147,8 @@ public class StatisticsFragment extends Fragment {
             Legend legend = mPieChart.getLegend();
             legend.setWordWrapEnabled(true);
             legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-//            legend.setTextSize(14f);
+            legend.setTextSize(13f);
+            legend.setTextColor(R.color.colorPrimaryText);
 
             PieDataSet dataSet = new PieDataSet(entries, "");
 
@@ -174,6 +175,9 @@ public class StatisticsFragment extends Fragment {
             pieData.setValueTextColor(getResources().getColor(R.color.colorPrimaryText));
 
             mPieChart.setData(pieData);
+
+            mPieChart.highlightValues(null);
+            mPieChart.invalidate();
         }
 
         return view;
